@@ -35,6 +35,13 @@ public/index.html + public/app.js
 
 O renderer não recebe acesso direto ao Node.js. O `preload.js` expõe apenas as operações necessárias e a janela utiliza `nodeIntegration: false`, `contextIsolation: true` e `sandbox: true`.
 
+## 🖥️ Interface
+
+A aplicação possui uma interface desktop simples para validação da autenticação,
+identificação da conta e geração do boleto.
+
+![Tela inicial do Gerador de Boletos](docs/screenshots/tela-inicial.png)
+
 ## Tecnologias
 
 - JavaScript (Vanilla JS)
