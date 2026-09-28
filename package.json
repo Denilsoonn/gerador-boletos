@@ -1,0 +1,41 @@
+{
+  "name": "gerador-boletos-demo",
+  "version": "3.3.0",
+  "private": true,
+  "description": "Projeto demonstrativo em Electron para estudo de um fluxo de geração e consulta de documentos de cobrança. A integração corporativa original foi removida da versão pública.",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:portable": "electron-builder --win portable --x64",
+    "build:unpacked": "electron-builder --win dir --x64"
+  },
+  "devDependencies": {
+    "electron": "37.4.0",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "com.example.geradorboletos",
+    "productName": "Gerador de Boletos",
+    "asar": true,
+    "files": [
+      "electron-main.js",
+      "preload.js",
+      "public/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "artifactName": "${productName}-${version}-${arch}.${ext}",
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "build/icon.ico",
+      "signExecutable": false
+    },
+    "portable": {
+      "artifactName": "${productName}-Portable-${version}.${ext}"
+    }
+  }
+}

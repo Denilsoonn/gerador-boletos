@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Boletos</title>
+  <link rel="icon" type="image/png" href="icon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+      <div class="heading">
+        <span class="badge">MVP LOCAL</span>
+        <h1>Gerador de Boletos</h1>
+        <p>Gere e consulte o boleto sem precisar montar as requisições manualmente no Postman.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-title">
+          <span>1</span>
+          <div>
+            <strong>Autenticação</strong>
+            <small>Cole o cURL copiado do navegador. A conta será identificada automaticamente quando houver apenas uma.</small>
+          </div>
+        </div>
+
+        <textarea id="curlInput" rows="7" placeholder="curl 'https://api.example.invalid/accounts?...&query=Empresa' ..."></textarea>
+        <button id="validateButton" class="secondary">Validar e identificar conta(s)</button>
+        <div id="authStatus" class="status hidden"></div>
+      </div>
+
+      <div id="boletoSection" class="step hidden">
+        <div class="step-title">
+          <span>2</span>
+          <div>
+            <strong>Dados do boleto</strong>
+            <small id="accountPrompt">Informe os dados do boleto.</small>
+          </div>
+        </div>
+
+        <!-- Exibido somente quando o cURL retorna exatamente uma conta. -->
+        <div id="singleAccountContext" class="account-context hidden">
+          <span>Conta identificada</span>
+          <strong id="singleAccountName"></strong>
+          <small id="singleAccountDetails"></small>
+        </div>
+
+        <!-- Exibido somente quando o cURL permite duas ou mais contas. -->
+        <div id="multipleAccountContext" class="hidden">
+          <label for="accountInput">Conta</label>
+          <div id="accountCombobox" class="account-combobox">
+            <div class="account-control">
+              <input
+                id="accountInput"
+                type="text"
+                placeholder="Digite para pesquisar ou selecione uma conta"
+                autocomplete="off"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded="false"
+                aria-controls="accountOptions"
+              />
+              <button
+                id="accountToggle"
+                class="account-toggle"
+                type="button"
+                aria-label="Mostrar lista de contas"
+                title="Mostrar lista de contas"
+              >⌄</button>
+            </div>
+
+            <div id="accountOptions" class="account-options hidden" role="listbox"></div>
+          </div>
+
+          <div id="accountCount" class="account-count"></div>
+          <div id="selectedAccountDetails" class="account-details hidden"></div>
+        </div>
+
+        <div class="grid">
+          <div>
+            <label for="valueInput">Valor</label>
+            <input id="valueInput" inputmode="decimal" placeholder="R$ 5.000,00" />
+          </div>
+          <div>
+            <label for="dueDateInput">Vencimento</label>
+            <input id="dueDateInput" type="date" />
+          </div>
+        </div>
+
+        <button id="generateButton" class="primary">Gerar boleto</button>
+        <div id="generationStatus" class="status hidden"></div>
+      </div>
+
+      <div id="successSection" class="success hidden">
+        <div class="success-icon">✓</div>
+        <h2>Boleto gerado</h2>
+        <p id="successSummary"></p>
+        <div class="actions">
+          <button id="openButton" class="primary">Abrir boleto</button>
+          <button id="copyButton" class="secondary">Copiar link</button>
+        </div>
+        <button id="anotherButton" class="link-button">+ Gerar outro boleto</button>
+      </div>
+
+      <details id="diagnostics" class="diagnostics hidden">
+        <summary>Detalhes técnicos</summary>
+        <pre id="diagnosticsContent"></pre>
+      </details>
+
+      <p class="security-note">
+        A autenticação fica apenas na memória desta página. O projeto não usa localStorage nem grava o cURL em arquivo.
+      </p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

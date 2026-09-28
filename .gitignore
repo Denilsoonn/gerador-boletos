@@ -1,0 +1,28 @@
+# Dependências e builds
+node_modules/
+dist/
+out/
+release/
+
+# Segredos/configuração local
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Logs e temporários
+*.log
+logs/
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
